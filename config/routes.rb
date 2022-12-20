@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
   # namespace :api do
   #   namespace :v1 do
-  #     resources:
+  #     resources :transcribe
   #   end
   # end
+
+  post 'api/v1/transcribe', to: 'transcribe#transcribe'
 end
