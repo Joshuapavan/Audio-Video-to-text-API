@@ -4,7 +4,6 @@ class Api::V1::AudiosController < BaseController
   # GET /audios
   def index
     @audios = current_user.audios
-    # @audios = current_user.audios.last.to_json(include: [:file_url])
 
     render json:{
       audios: @audios
@@ -27,38 +26,23 @@ class Api::V1::AudiosController < BaseController
     audio_file = active_storage_disk_service.send(:path_for, @audio.audio_file.blob.key)
   # => returns full path to the document stored locally on disk
 
-    # audio_file = AudioSerializer.new(@audio).audio_file
     audio_service = Api::V1::AudioService.new()
 
     transcription = audio_service.upload(audio_file)
 
     @audio.update(to_string: transcription)
 
-
     if @audio
       render json:{
         message: "Successfully added the audio to the signed in user.",
         user: current_user,
-        audio_file: AudioSerializer.new(@audio).audio_file,
+        audio_file: audio_file
         transcribed_text: @audio.to_string
       },status: :created
     else
       render json:{
         message: @audio.errors.full_messages
       },status: :unprocessable_entity
-    end
-  end
-
-  def latest
-    @audio = current_user.audios.last
-    if @audio
-      render json:{
-        audio: AudioSerializer.new(@audio).audio_file
-      }, status: :ok
-    else
-      render json:{
-        message: "Error while fetching the audio"
-      }, status: :unprocessable_entity
     end
   end
 

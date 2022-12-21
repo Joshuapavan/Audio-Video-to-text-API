@@ -9,8 +9,4 @@ Rails.application.routes.draw do
       resources :audios
     end
   end
-
-  # resources :audios
-
-  post 'api/v1/transcribe_audio', to: 'api/v1/audios#create'
 end
