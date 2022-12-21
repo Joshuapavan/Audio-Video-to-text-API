@@ -6,7 +6,7 @@ class Api::V1::AudiosController < BaseController
     @audios = current_user.audios
 
     render json:{
-      audios: @audios
+      audio_transcrptions: @audios
     }
   end
 
@@ -36,7 +36,8 @@ class Api::V1::AudiosController < BaseController
       render json:{
         message: "Successfully added the audio to the signed in user.",
         user: current_user,
-        audio_file: audio_file
+        audio_file: audio_file,
+        audio_url: AudioSerializer.new(@audio).audio_file,
         transcribed_text: @audio.to_string
       },status: :created
     else
