@@ -4,11 +4,13 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
     }
 
-  # namespace :api do
-  #   namespace :v1 do
-  #     resources :transcribe
-  #   end
-  # end
+  namespace :api do
+    namespace :v1 do
+      resources :audios
+    end
+  end
 
-  post 'api/v1/transcribe', to: 'transcribe#transcribe'
+  # resources :audios
+
+  post 'api/v1/transcribe_audio', to: 'api/v1/audios#create'
 end
