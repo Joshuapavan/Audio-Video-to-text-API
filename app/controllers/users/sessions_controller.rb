@@ -3,11 +3,17 @@ class Users::SessionsController < Devise::SessionsController
 
   private
   def respond_with(response, options = {})
-    render json:
-    {
+    if current_user.blocked
+      render json:{
+        message: "Please contact the admin, to unblock your account.",
+        reason: "you have transcribed #{current_user.flagged_words_count} inappropriate words."
+      }, status: :unauthorized
+    else
+      render json:{
       message: "User logged in successfully",
       data: current_user
     },status: :ok
+    end
   end
 
   def respond_to_on_destroy()

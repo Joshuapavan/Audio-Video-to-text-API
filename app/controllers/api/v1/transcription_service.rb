@@ -6,7 +6,7 @@ $api_key = 'c611847ce16b4219b79a150b7732afcd'
 $upload_url = 'https://api.assemblyai.com/v2/upload'
 $transcribe_url = 'https://api.assemblyai.com/v2/transcript'
 
-class Api::V1::AudioService
+class Api::V1::TranscriptionService
 
   def upload(file_path)
     uri = URI($upload_url)
