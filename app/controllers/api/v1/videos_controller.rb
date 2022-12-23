@@ -99,7 +99,7 @@ class Api::V1::VideosController < BaseController
       def set_video
 
         @video = current_user.videos.find(params[:id])
-        @video_url = videoserializer.new(@video).video_file
+        @video_url = VideoSerializer.new(@video).video_file
       end
   
       # Only allow a list of trusted parameters through.
