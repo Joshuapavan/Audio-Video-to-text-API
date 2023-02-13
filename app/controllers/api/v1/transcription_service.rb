@@ -2,7 +2,7 @@ require 'json'
 require 'net/http'
 require 'openssl'
 
-$api_key = 'c611847ce16b4219b79a150b7732afcd'
+$api_key = 'add your api key here'
 $upload_url = 'https://api.assemblyai.com/v2/upload'
 $transcribe_url = 'https://api.assemblyai.com/v2/transcript'
 
