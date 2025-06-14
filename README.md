@@ -1,24 +1,53 @@
-# README
+# Audio-Video to Text API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Rails API that converts audio and video files to text using AssemblyAI's transcription service.
 
-Things you may want to cover:
+## Requirements
 
-* Ruby version
+* Ruby 3.1.2
+* Rails 7.0.4
+* SQLite3
 
-* System dependencies
+## Setup
 
-* Configuration
+1. Clone the repository
+2. Install dependencies:
+```bash
+bundle install
+```
+3. Set up the database:
+```bash
+rails db:create db:migrate
+```
+4. Add your AssemblyAI API key in `app/controllers/api/v1/transcription_service.rb`
 
-* Database creation
+## API Endpoints
 
-* Database initialization
+### Authentication
+The API uses Devise JWT for authentication. Include the JWT token in request headers:
+```
+Authorization: Bearer <your-jwt-token>
+```
 
-* How to run the test suite
+### Audio Endpoints
 
-* Services (job queues, cache servers, search engines, etc.)
+#### POST /api/v1/audios
+Upload and transcribe an audio file.
+- Request: `multipart/form-data` with `audio_file` parameter
+- Response: Transcribed text and file information
 
-* Deployment instructions
+#### GET /api/v1/audios
+Get all audio transcriptions for the current user.
 
-* ...
+#### GET /api/v1/audios/:id
+Get a specific audio transcription.
+
+#### DELETE /api/v1/audios/:id
+Delete an audio transcription.
+
+## Features
+
+- Audio file transcription
+- User authentication with JWT
+- Flagged word detection
+- User blocking after 3 flagged words
